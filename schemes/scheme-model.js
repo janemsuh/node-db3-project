@@ -28,11 +28,18 @@ function remove(id) {
     return db('schemes').where({ id }).del();
 };
 
+function addStep(step, scheme_id) {
+    const newStep = { ...step, scheme_id: scheme_id };
+    return db('steps').insert(newStep)
+        .then(findSteps(scheme_id));
+};
+
 module.exports = {
     find,
     findById,
     findSteps,
     add,
     update,
-    remove
+    remove,
+    addStep
 };
